@@ -1,0 +1,23 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f7faf7;
+  color: #172016;
+}
+
+a {
+  color: inherit;
+}
+
+main {
+  min-height: 100vh;
+  padding: 48px 24px;
+}
