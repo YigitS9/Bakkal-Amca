@@ -3,8 +3,11 @@ node_modules
 out
 build
 dist
+.env
 .env.local
 .env*.local
 *.log
+server.out.log
+server.err.log
 prisma/dev.db
 prisma/dev.db-journal
