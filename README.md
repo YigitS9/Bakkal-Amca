@@ -1,10 +1,12 @@
-# Bakkal Amca Online Grocery Shopping Management System
+# Bakkal Amca Online Market Alışveriş Sistemi
 
-Bakkal Amca is a prototype online grocery shopping management system built for an Object Oriented Programming 2 course. It uses a Next.js application as both the API backend and the frontend, with Prisma and SQLite for persistence.
+Bakkal Amca, Nesne Yönelimli Programlama 2 dersi için geliştirilmiş prototip bir online market alışveriş sistemidir. Prisma ve SQLite tabanlı veritabanı kullanır. Next.js uygulaması hem API backend'i hem de frontend olarak çalışır.
 
-The project focuses on clean backend architecture, visible OOP principles, role-based customer/admin behavior, cart and checkout logic, and a simple usable interface.
+Proje; temiz backend mimarisine, görünür OOP prensiplerine, rol bazlı müşteri/admin davranışına, sepet ve ödeme mantığına ve basit kullanılabilir bir arayüze odaklanır.
 
-## Technologies
+Projenın odak noktası OOP prensiplerine dayalı temiz bir backend mimarisidir. Bunun yanı sıra inceleme ve sunum kolaylığı açısından basit bir frontend'e sahiptir.
+
+## Tech Stack
 
 - Next.js App Router
 - TypeScript
@@ -16,172 +18,172 @@ The project focuses on clean backend architecture, visible OOP principles, role-
 - jose
 - Zod
 
-## Features
+## Özellikler
 
-- Customer registration and login
-- HTTP-only cookie JWT authentication
-- Customer and admin roles
-- Product list, search, detail pages, and category filtering
-- Product type support: fresh, frozen, packaged
-- Cart add, update, remove, clear, and total calculation
-- Checkout with fake credit card or cash on delivery
-- Order history for customers
-- Admin dashboard with counts, low-stock products, and recent orders
-- Admin product create, edit, soft delete, and stock update
-- Admin category create, edit, and delete
-- Admin order list and status update
-- Custom API error classes and centralized API error handling
-- Zod request validation
-- OOP domain layer with inheritance, interfaces, abstraction, encapsulation, and polymorphism
+- Müşteri kaydı ve girişi
+- HTTP-only cookie ile JWT kimlik doğrulama
+- Müşteri ve admin rolleri
+- Ürün listesi, arama, detay sayfaları ve kategori filtreleme
+- Ürün tipi desteği: taze, dondurulmuş, paketli
+- Sepete ekleme, güncelleme, silme, temizleme ve toplam hesaplama
+- Sahte kredi kartı veya kapıda ödeme ile sipariş tamamlama
+- Müşteriler için sipariş geçmişi
+- Sayaçlar, düşük stoklu ürünler ve son siparişlerle admin paneli
+- Admin ürün oluşturma, düzenleme, soft delete ve stok güncelleme
+- Admin kategori oluşturma, düzenleme ve silme
+- Admin sipariş listesi ve durum güncelleme
+- Özel API hata sınıfları ve merkezi API hata yönetimi
+- Zod istek doğrulaması
+- Kalıtım, interface, soyutlama, kapsülleme ve çok biçimlilik içeren OOP domain katmanı
 
-## Default Accounts
+## Test hesapları
 
 ```txt
 Admin
-Email: admin@grocery.com
-Password: admin123
+E-posta: admin@grocery.com
+Şifre: admin123
 
-Customer
-Email: customer@grocery.com
-Password: customer123
+Müşteri
+E-posta: customer@grocery.com
+Şifre: customer123
 ```
 
-## Setup
+## Kurulum
 
-1. Install dependencies.
+1. Gereksinimlerini yükleyin.
 
 ```powershell
 npm install
 ```
 
-2. Create a local environment file.
+2. .env dosyasını oluşturun.
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-3. Generate Prisma Client.
+3. Prisma Client'i oluşturun.
 
 ```powershell
 npx prisma generate
 ```
 
-4. Create the SQLite database.
+4. SQLite veritabanını oluşturun.
 
 ```powershell
 npx prisma db execute --file prisma/migrations/20260626195400_init/migration.sql --schema prisma/schema.prisma
 ```
 
-5. Seed default data.
+5. Varsayılan verileri ekleyin.
 
 ```powershell
 npx prisma db seed
 ```
 
-6. Start the development server.
+6. Geliştirme sunucusunu başlatın.
 
 ```powershell
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+`http://localhost:3000` adresini açın.
 
-## Scripts
-
-```txt
-npm run dev              Start local development server
-npm run build            Build production app
-npm run start            Start production app after build
-npm run lint             Run ESLint
-npm run prisma:generate  Generate Prisma Client
-npm run prisma:seed      Seed database
-```
-
-## Main Pages
+## Scriptler
 
 ```txt
-/                    Home
-/login               Login
-/register            Register
-/products            Product listing
-/products/[id]       Product detail
-/cart                Shopping cart
-/checkout            Checkout
-/orders              Customer order history
-/admin               Admin dashboard
-/admin/products      Admin product management
-/admin/categories    Admin category management
-/admin/orders        Admin order management
+npm run dev              Yerel geliştirme sunucusunu başlatır
+npm run build            Production uygulamasını derler
+npm run start            Derlemeden sonra production uygulamasını başlatır
+npm run lint             ESLint çalıştırır
+npm run prisma:generate  Prisma Client oluşturur
+npm run prisma:seed      Veritabanı seed işlemini çalıştırır
 ```
 
-## API Endpoints
+## Sayfalar
 
-### Auth
+```txt
+/                    Ana sayfa
+/login               Giriş
+/register            Kayıt
+/products            Ürün listeleme
+/products/[id]       Ürün detayı
+/cart                Alışveriş sepeti
+/checkout            Ödeme
+/orders              Müşteri sipariş geçmişi
+/admin               Admin paneli
+/admin/products      Admin ürün yönetimi
+/admin/categories    Admin kategori yönetimi
+/admin/orders        Admin sipariş yönetimi
+```
 
-| Method | Endpoint | Access | Description |
+## API Endpointleri
+
+### Kimlik Doğrulama
+
+| Method | Endpoint | Erişim | Açıklama |
 |---|---|---|---|
-| POST | `/api/auth/register` | Public | Register customer |
-| POST | `/api/auth/login` | Public | Login and set auth cookie |
-| POST | `/api/auth/logout` | Authenticated | Clear auth cookie |
-| GET | `/api/auth/me` | Authenticated | Get current user |
+| POST | `/api/auth/register` | Public | Müşteri kaydı |
+| POST | `/api/auth/login` | Public | Giriş yapar ve auth cookie ayarlar |
+| POST | `/api/auth/logout` | Authenticated | Auth cookie temizler |
+| GET | `/api/auth/me` | Authenticated | Mevcut kullanıcıyı getirir |
 
-### Products and Categories
+### Ürünler ve Kategoriler
 
-| Method | Endpoint | Access | Description |
+| Method | Endpoint | Erişim | Açıklama |
 |---|---|---|---|
-| GET | `/api/products` | Public | List/search/filter products |
-| GET | `/api/products/[id]` | Public | Product detail |
-| GET | `/api/categories` | Public | List categories |
+| GET | `/api/products` | Public | Ürünleri listeler/arar/filtreler |
+| GET | `/api/products/[id]` | Public | Ürün detayı |
+| GET | `/api/categories` | Public | Kategorileri listeler |
 
-### Cart
+### Sepet
 
-| Method | Endpoint | Access | Description |
+| Method | Endpoint | Erişim | Açıklama |
 |---|---|---|---|
-| GET | `/api/cart` | Customer | Get current cart |
-| DELETE | `/api/cart` | Customer | Clear cart |
-| POST | `/api/cart/items` | Customer | Add item |
-| PUT | `/api/cart/items/[id]` | Customer | Update item quantity |
-| DELETE | `/api/cart/items/[id]` | Customer | Remove item |
+| GET | `/api/cart` | Customer | Mevcut sepeti getirir |
+| DELETE | `/api/cart` | Customer | Sepeti temizler |
+| POST | `/api/cart/items` | Customer | Ürün ekler |
+| PUT | `/api/cart/items/[id]` | Customer | Ürün miktarını günceller |
+| DELETE | `/api/cart/items/[id]` | Customer | Ürünü sepetten siler |
 
-### Orders
+### Siparişler
 
-| Method | Endpoint | Access | Description |
+| Method | Endpoint | Erişim | Açıklama |
 |---|---|---|---|
-| POST | `/api/orders/checkout` | Customer | Create order from cart |
-| GET | `/api/orders/my-orders` | Customer | Current user's orders |
-| GET | `/api/orders/[id]` | Customer/Admin | Order detail |
+| POST | `/api/orders/checkout` | Customer | Sepetten sipariş oluşturur |
+| GET | `/api/orders/my-orders` | Customer | Mevcut kullanıcının siparişleri |
+| GET | `/api/orders/[id]` | Customer/Admin | Sipariş detayı |
 
 ### Admin
 
-| Method | Endpoint | Access | Description |
+| Method | Endpoint | Erişim | Açıklama |
 |---|---|---|---|
-| GET | `/api/admin/dashboard` | Admin | Dashboard statistics |
-| GET | `/api/admin/products` | Admin | List products |
-| POST | `/api/admin/products` | Admin | Create product |
-| PUT | `/api/admin/products/[id]` | Admin | Update product |
-| PATCH | `/api/admin/products/[id]` | Admin | Update stock |
-| DELETE | `/api/admin/products/[id]` | Admin | Soft delete product |
-| GET | `/api/admin/categories` | Admin | List categories |
-| POST | `/api/admin/categories` | Admin | Create category |
-| PUT | `/api/admin/categories/[id]` | Admin | Update category |
-| DELETE | `/api/admin/categories/[id]` | Admin | Delete category |
-| GET | `/api/admin/orders` | Admin | List all orders |
-| GET | `/api/admin/orders/[id]` | Admin | Order detail |
-| PATCH | `/api/admin/orders/[id]` | Admin | Update order status |
+| GET | `/api/admin/dashboard` | Admin | Panel istatistikleri |
+| GET | `/api/admin/products` | Admin | Ürünleri listeler |
+| POST | `/api/admin/products` | Admin | Ürün oluşturur |
+| PUT | `/api/admin/products/[id]` | Admin | Ürünü günceller |
+| PATCH | `/api/admin/products/[id]` | Admin | Stok günceller |
+| DELETE | `/api/admin/products/[id]` | Admin | Ürünü soft delete ile siler |
+| GET | `/api/admin/categories` | Admin | Kategorileri listeler |
+| POST | `/api/admin/categories` | Admin | Kategori oluşturur |
+| PUT | `/api/admin/categories/[id]` | Admin | Kategoriyi günceller |
+| DELETE | `/api/admin/categories/[id]` | Admin | Kategoriyi siler |
+| GET | `/api/admin/orders` | Admin | Tüm siparişleri listeler |
+| GET | `/api/admin/orders/[id]` | Admin | Sipariş detayı |
+| PATCH | `/api/admin/orders/[id]` | Admin | Sipariş durumunu günceller |
 
-## Database Summary
+## Veritabanı Özeti
 
-The Prisma schema contains these main models:
+Prisma şeması şu ana modelleri içerir:
 
-- `User`: customer/admin accounts with hashed passwords
-- `Category`: product grouping
-- `Product`: grocery products with type-specific fields
-- `Cart`: one cart per user
-- `CartItem`: product and quantity in cart
-- `Order`: checkout result with status and payment fields
-- `OrderItem`: purchased product snapshot with name, unit price, and quantity
+- `User`: hashlenmiş şifrelere sahip müşteri/admin hesapları
+- `Category`: ürün gruplama
+- `Product`: tipe özel alanları olan market ürünleri
+- `Cart`: kullanıcı başına bir sepet
+- `CartItem`: sepetteki ürün ve miktar
+- `Order`: durum ve ödeme alanlarıyla sipariş sonucu
+- `OrderItem`: ad, birim fiyat ve miktar içeren satın alınmış ürün anlık görüntüsü
 
-Important enums:
+Önemli enumlar:
 
 - `UserRole`: `ADMIN`, `CUSTOMER`
 - `ProductType`: `FRESH`, `FROZEN`, `PACKAGED`
@@ -189,29 +191,29 @@ Important enums:
 - `PaymentStatus`: `PENDING`, `PAID`, `FAILED`, `CASH_ON_DELIVERY`
 - `PaymentMethod`: `CASH_ON_DELIVERY`, `FAKE_CREDIT_CARD`
 
-## OOP Principles Used
+## Kullanılan OOP Prensipleri
 
-### Encapsulation
+### Kapsülleme
 
-Domain classes keep internal state private and expose controlled public methods. For example, `Product` stock is changed through `reduceStock()` and `increaseStock()`, and `Cart` items are added through `addItem()`.
+Domain sınıfları iç durumu private tutar ve kontrollü public metotlar sunar. Örneğin `Product` stoğu `reduceStock()` ve `increaseStock()` ile değiştirilir; `Cart` ögeleri ise `addItem()` ile eklenir.
 
-### Inheritance
+### Kalıtım
 
-The project uses an abstract `Product` class with `FreshProduct`, `FrozenProduct`, and `PackagedProduct` child classes. It also includes an abstract `User` class with `Customer` and `Admin` child classes.
+Projede `FreshProduct`, `FrozenProduct` ve `PackagedProduct` alt sınıflarına sahip soyut bir `Product` sınıfı kullanılır. Ayrıca `Customer` ve `Admin` alt sınıflarına sahip soyut bir `User` sınıfı bulunur.
 
-### Interface and Abstraction
+### Interface ve Soyutlama
 
-`IPaymentProcessor` defines a common payment abstraction. `CashOnDeliveryPayment` and `FakeCreditCardPayment` implement this interface.
+`IPaymentProcessor` ortak bir ödeme soyutlaması tanımlar. `CashOnDeliveryPayment` ve `FakeCreditCardPayment` bu interface'i uygular.
 
-### Polymorphism
+### Çok Biçimlilik
 
-`OrderService` selects an `IPaymentProcessor` implementation based on payment method, then processes checkout through the interface reference instead of depending on concrete payment classes.
+`OrderService`, ödeme yöntemine göre bir `IPaymentProcessor` implementasyonu seçer ve checkout işlemini somut ödeme sınıflarına bağlanmak yerine interface referansı üzerinden çalıştırır.
 
-### Design Integrity
+### Tasarım Bütünlüğü
 
-The app separates route handlers, services, repositories, domain models, validators, auth helpers, and exceptions. API route files act as controllers and delegate business logic to services.
+Uygulama route handler'ları, servisleri, repository'leri, domain modellerini, validator'ları, auth yardımcılarını ve exception'ları ayırır. API route dosyaları controller gibi davranır ve iş mantığını servislere devreder.
 
-## UML Class Diagram
+## UML Sınıf Diyagramı
 
 ```mermaid
 classDiagram
@@ -332,35 +334,3 @@ classDiagram
     ProductFactory --> Product
     OrderService --> IPaymentProcessor
 ```
-
-## Manual Test Checklist
-
-- Register a new customer
-- Login as seeded customer
-- Login as seeded admin
-- Reject wrong password
-- Browse products
-- Search products
-- Filter by category
-- View product detail
-- Add product to cart
-- Update cart quantity
-- Remove cart item
-- Checkout with fake credit card
-- Checkout with cash on delivery
-- Confirm cart clears after checkout
-- View customer order history
-- Create/edit/delete admin product
-- Update admin stock
-- Create/edit/delete category
-- View all orders as admin
-- Update order status as admin
-- Confirm customer cannot access admin pages/API data
-
-## Known Limitations
-
-- Payments are fake and do not contact a real payment gateway.
-- Product images use external placeholder URLs.
-- Product deletion is implemented as a soft delete.
-- Prisma migration command had schema-engine issues on this Windows environment, so the checked-in SQL migration can be applied with `prisma db execute`.
-- Screenshots are not included yet.
