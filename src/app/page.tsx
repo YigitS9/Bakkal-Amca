@@ -3,6 +3,7 @@ export default function Home() {
     <main className="page-shell">
       <section className="hero">
         <div>
+          <img className="hero-logo" src="/bakkal-amca-logo.png" alt="Bakkal Amca" />
           <p className="eyebrow">Online Grocery Shopping Management System</p>
           <h1>Bakkal Amca Grocery</h1>
           <p>

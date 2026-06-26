@@ -96,7 +96,7 @@ export default function CartPage() {
 
       {!cart ? <p className="muted">Loading cart...</p> : null}
       {cart && cart.items.length === 0 ? (
-        <section className="panel">
+        <section className="empty-state">
           <h2>Your cart is empty</h2>
           <p className="muted">Add products before checkout.</p>
           <Link href="/products" className="button primary">
@@ -136,7 +136,7 @@ export default function CartPage() {
                     +
                   </button>
                 </div>
-                <strong>${item.lineTotal.toFixed(2)}</strong>
+                <strong className="price">${item.lineTotal.toFixed(2)}</strong>
                 <button type="button" className="button ghost" onClick={() => removeItem(item.id)}>
                   Remove
                 </button>

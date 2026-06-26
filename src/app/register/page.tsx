@@ -47,6 +47,7 @@ export default function RegisterPage() {
   return (
     <main className="page-shell narrow">
       <section className="panel">
+        <img className="auth-logo" src="/bakkal-amca-logo.png" alt="Bakkal Amca" />
         <p className="eyebrow">Create customer account</p>
         <h1>Register</h1>
         <form className="form" onSubmit={submit}>

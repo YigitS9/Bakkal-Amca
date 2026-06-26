@@ -188,6 +188,14 @@ export default function AdminProductsPage() {
       <section className="page-title">
         <p className="eyebrow">Admin panel</p>
         <h1>Products</h1>
+        <div className="admin-subnav" aria-label="Admin sections">
+          <a href="/admin">Dashboard</a>
+          <a href="/admin/products" className="active">
+            Products
+          </a>
+          <a href="/admin/categories">Categories</a>
+          <a href="/admin/orders">Orders</a>
+        </div>
       </section>
 
       {message ? <p className={message.includes("failed") || message.includes("required") ? "alert error" : "alert"}>{message}</p> : null}
@@ -315,7 +323,9 @@ export default function AdminProductsPage() {
                   <tr key={product.id}>
                     <td>{product.name}</td>
                     <td>{product.category.name}</td>
-                    <td>{product.productType}</td>
+                    <td>
+                      <span className="status-badge">{product.productType}</span>
+                    </td>
                     <td>${product.price.toFixed(2)}</td>
                     <td>
                       <div className="stock-control">
@@ -327,7 +337,9 @@ export default function AdminProductsPage() {
                         >
                           -
                         </button>
-                        <span>{product.stockQuantity}</span>
+                        <span className={product.stockQuantity <= 10 ? "stock-number low" : "stock-number"}>
+                          {product.stockQuantity}
+                        </span>
                         <button
                           type="button"
                           className="icon-button"

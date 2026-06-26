@@ -73,13 +73,24 @@ export default function CheckoutPage() {
 
         <aside className="summary-panel">
           <h2>Payment</h2>
-          <label>
-            Method
-            <select value={paymentMethod} onChange={(event) => setPaymentMethod(event.target.value)}>
-              <option value="FAKE_CREDIT_CARD">Fake credit card</option>
-              <option value="CASH_ON_DELIVERY">Cash on delivery</option>
-            </select>
-          </label>
+          <div className="payment-options" aria-label="Payment method">
+            <button
+              type="button"
+              className={paymentMethod === "FAKE_CREDIT_CARD" ? "payment-option active" : "payment-option"}
+              onClick={() => setPaymentMethod("FAKE_CREDIT_CARD")}
+            >
+              <strong>Fake credit card</strong>
+              <span>Instant prototype payment</span>
+            </button>
+            <button
+              type="button"
+              className={paymentMethod === "CASH_ON_DELIVERY" ? "payment-option active" : "payment-option"}
+              onClick={() => setPaymentMethod("CASH_ON_DELIVERY")}
+            >
+              <strong>Cash on delivery</strong>
+              <span>Pay when groceries arrive</span>
+            </button>
+          </div>
           <div className="summary-row">
             <span>Total</span>
             <strong>${(cart?.total ?? 0).toFixed(2)}</strong>

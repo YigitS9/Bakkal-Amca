@@ -49,17 +49,7 @@ export default function AdminPage() {
           <p className="eyebrow">Admin panel</p>
           <h1>Dashboard</h1>
         </div>
-        <div className="actions">
-          <Link href="/admin/products" className="button primary">
-            Products
-          </Link>
-          <Link href="/admin/categories" className="button ghost">
-            Categories
-          </Link>
-          <Link href="/admin/orders" className="button ghost">
-            Orders
-          </Link>
-        </div>
+        <p className="muted page-kicker">Monitor store activity and jump into management tasks.</p>
       </section>
 
       {message ? <p className="alert error">{message}</p> : null}
@@ -68,18 +58,21 @@ export default function AdminPage() {
       {stats ? (
         <>
           <section className="stat-grid" aria-label="Dashboard statistics">
-            <article className="stat-card">
+            <Link href="/admin/products" className="stat-card action-card">
               <span>Products</span>
               <strong>{stats.totalProducts}</strong>
-            </article>
-            <article className="stat-card">
+              <small>Manage catalog and stock</small>
+            </Link>
+            <Link href="/admin/categories" className="stat-card action-card">
               <span>Categories</span>
               <strong>{stats.totalCategories}</strong>
-            </article>
-            <article className="stat-card">
+              <small>Organize product groups</small>
+            </Link>
+            <Link href="/admin/orders" className="stat-card action-card">
               <span>Orders</span>
               <strong>{stats.totalOrders}</strong>
-            </article>
+              <small>Review and update status</small>
+            </Link>
           </section>
 
           <section className="admin-grid">
@@ -102,9 +95,7 @@ export default function AdminPage() {
               <div className="compact-list">
                 {stats.recentOrders.map((order) => (
                   <div key={order.id} className="summary-row">
-                    <span>
-                      {order.user.fullName} · {order.status}
-                    </span>
+                    <span>{order.user.fullName} - {order.status}</span>
                     <strong>${order.totalAmount.toFixed(2)}</strong>
                   </div>
                 ))}

@@ -34,6 +34,7 @@ export default function LoginPage() {
   return (
     <main className="page-shell narrow">
       <section className="panel">
+        <img className="auth-logo" src="/bakkal-amca-logo.png" alt="Bakkal Amca" />
         <p className="eyebrow">Welcome back</p>
         <h1>Login</h1>
         <form className="form" onSubmit={submit}>

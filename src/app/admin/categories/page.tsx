@@ -78,6 +78,14 @@ export default function AdminCategoriesPage() {
       <section className="page-title">
         <p className="eyebrow">Admin panel</p>
         <h1>Categories</h1>
+        <div className="admin-subnav" aria-label="Admin sections">
+          <a href="/admin">Dashboard</a>
+          <a href="/admin/products">Products</a>
+          <a href="/admin/categories" className="active">
+            Categories
+          </a>
+          <a href="/admin/orders">Orders</a>
+        </div>
       </section>
 
       {message ? <p className={message.includes("failed") || message.includes("required") ? "alert error" : "alert"}>{message}</p> : null}

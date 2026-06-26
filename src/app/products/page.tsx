@@ -31,9 +31,13 @@ export default function ProductsPage() {
   const query = useMemo(() => {
     const params = new URLSearchParams();
     if (search.trim()) params.set("search", search.trim());
-    if (categoryId) params.set("categoryId", categoryId);
     return params.toString();
-  }, [categoryId, search]);
+  }, [search]);
+
+  const visibleProducts = useMemo(() => {
+    if (!categoryId) return products;
+    return products.filter((product) => product.category.id === categoryId);
+  }, [categoryId, products]);
 
   useEffect(() => {
     fetch("/api/categories")
@@ -75,41 +79,80 @@ export default function ProductsPage() {
         <h1>Products</h1>
       </section>
 
-      <section className="toolbar" aria-label="Product filters">
-        <input
-          placeholder="Search products"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-        <select value={categoryId} onChange={(event) => setCategoryId(event.target.value)}>
-          <option value="">All categories</option>
+      <section className="product-discovery" aria-label="Product filters">
+        <div className="search-panel">
+          <label>
+            Search all products
+            <input
+              placeholder="Try milk, rice, pizza..."
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+            />
+          </label>
+          <span className="result-count">
+            {visibleProducts.length} {visibleProducts.length === 1 ? "item" : "items"}
+          </span>
+        </div>
+        <div className="category-chip-row" aria-label="Categories">
+          <button
+            type="button"
+            className={categoryId === "" ? "category-chip active" : "category-chip"}
+            onClick={() => setCategoryId("")}
+          >
+            All
+          </button>
           {categories.map((category) => (
-            <option key={category.id} value={category.id}>
+            <button
+              key={category.id}
+              type="button"
+              className={categoryId === category.id ? "category-chip active" : "category-chip"}
+              onClick={() => setCategoryId(category.id)}
+            >
               {category.name}
-            </option>
+            </button>
           ))}
-        </select>
+        </div>
       </section>
 
       {message ? <p className="alert">{message}</p> : null}
       {isLoading ? <p className="muted">Loading products...</p> : null}
+      {!isLoading && visibleProducts.length === 0 ? (
+        <section className="empty-state">
+          <h2>No products found</h2>
+          <p>Try a different search term or switch to all categories.</p>
+          <button
+            type="button"
+            className="button ghost"
+            onClick={() => {
+              setSearch("");
+              setCategoryId("");
+            }}
+          >
+            Reset filters
+          </button>
+        </section>
+      ) : null}
 
       <section className="product-grid">
-        {products.map((product) => (
+        {visibleProducts.map((product) => (
           <article key={product.id} className="product-card">
-            <img src={product.imageUrl ?? "/placeholder.png"} alt={product.name} />
+            <Link href={`/products/${product.id}`} className="product-image-link">
+              <img src={product.imageUrl ?? "/placeholder.png"} alt={product.name} />
+            </Link>
             <div className="card-body">
               <div className="card-heading">
                 <h2>{product.name}</h2>
-                <span>${product.finalPrice.toFixed(2)}</span>
+                <span className="price">${product.finalPrice.toFixed(2)}</span>
               </div>
               <p>{product.description}</p>
               <div className="meta-row">
                 <span>{product.category.name}</span>
                 <span>{product.productType}</span>
-                <span>{product.stockQuantity} in stock</span>
+                <span className={product.stockQuantity <= 10 ? "stock-badge low" : "stock-badge"}>
+                  {product.stockQuantity} in stock
+                </span>
               </div>
-              <div className="actions">
+              <div className="card-actions">
                 <Link href={`/products/${product.id}`} className="button ghost">
                   Details
                 </Link>

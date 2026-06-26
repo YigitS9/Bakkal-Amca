@@ -65,9 +65,21 @@ export default function AdminOrdersPage() {
       <section className="page-title">
         <p className="eyebrow">Admin panel</p>
         <h1>Orders</h1>
+        <div className="admin-subnav" aria-label="Admin sections">
+          <a href="/admin">Dashboard</a>
+          <a href="/admin/products">Products</a>
+          <a href="/admin/categories">Categories</a>
+          <a href="/admin/orders" className="active">
+            Orders
+          </a>
+        </div>
       </section>
 
-      {message ? <p className={message.includes("failed") || message.includes("required") ? "alert error" : "alert"}>{message}</p> : null}
+      {message ? (
+        <p className={message.includes("failed") || message.includes("required") ? "alert error" : "alert"}>
+          {message}
+        </p>
+      ) : null}
 
       <section className="order-list">
         {orders.length === 0 && !message ? <p className="muted">No orders yet.</p> : null}
@@ -77,7 +89,7 @@ export default function AdminOrdersPage() {
               <div>
                 <h2>Order {order.id.slice(-6)}</h2>
                 <p className="muted">
-                  {order.user.fullName} · {order.user.email} · {new Date(order.createdAt).toLocaleString()}
+                  {order.user.fullName} - {order.user.email} - {new Date(order.createdAt).toLocaleString()}
                 </p>
               </div>
               <strong>${order.totalAmount.toFixed(2)}</strong>
@@ -86,7 +98,10 @@ export default function AdminOrdersPage() {
             <div className="admin-order-controls">
               <label>
                 Status
-                <select value={order.status} onChange={(event) => updateStatus(order.id, event.target.value as Order["status"])}>
+                <select
+                  value={order.status}
+                  onChange={(event) => updateStatus(order.id, event.target.value as Order["status"])}
+                >
                   {statuses.map((status) => (
                     <option key={status} value={status}>
                       {status}
@@ -95,8 +110,8 @@ export default function AdminOrdersPage() {
                 </select>
               </label>
               <div className="meta-row">
-                <span>{order.paymentStatus}</span>
-                <span>{order.paymentMethod}</span>
+                <span className="status-badge">{order.paymentStatus}</span>
+                <span className="status-badge">{order.paymentMethod}</span>
               </div>
             </div>
 

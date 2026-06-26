@@ -45,7 +45,7 @@ export default function OrdersPage() {
 
       {message ? <p className="alert error">{message}</p> : null}
       {orders.length === 0 && !message ? (
-        <section className="panel">
+        <section className="empty-state">
           <h2>No orders yet</h2>
           <p className="muted">Complete checkout to see orders here.</p>
           <Link href="/products" className="button primary">
@@ -65,9 +65,9 @@ export default function OrdersPage() {
               <strong>${order.totalAmount.toFixed(2)}</strong>
             </div>
             <div className="meta-row">
-              <span>{order.status}</span>
-              <span>{order.paymentStatus}</span>
-              <span>{order.paymentMethod}</span>
+              <span className="status-badge">{order.status}</span>
+              <span className="status-badge">{order.paymentStatus}</span>
+              <span className="status-badge">{order.paymentMethod}</span>
             </div>
             <div className="order-items">
               {order.items.map((item) => (

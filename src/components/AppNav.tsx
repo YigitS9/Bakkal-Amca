@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type CurrentUser = {
@@ -11,6 +12,7 @@ type CurrentUser = {
 
 export function AppNav() {
   const [user, setUser] = useState<CurrentUser | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -28,13 +30,23 @@ export function AppNav() {
   return (
     <header className="site-header">
       <Link href="/" className="brand">
-        Bakkal Amca
+        <img src="/bakkal-amca-logo.png" alt="Bakkal Amca" />
       </Link>
       <nav className="nav-links" aria-label="Main navigation">
-        <Link href="/products">Products</Link>
-        <Link href="/cart">Cart</Link>
-        <Link href="/orders">Orders</Link>
-        {user?.role === "ADMIN" ? <Link href="/admin">Admin</Link> : null}
+        <Link href="/products" className={pathname.startsWith("/products") ? "active" : ""}>
+          Products
+        </Link>
+        <Link href="/cart" className={pathname.startsWith("/cart") || pathname.startsWith("/checkout") ? "active" : ""}>
+          Cart
+        </Link>
+        <Link href="/orders" className={pathname.startsWith("/orders") ? "active" : ""}>
+          Orders
+        </Link>
+        {user?.role === "ADMIN" ? (
+          <Link href="/admin" className={pathname.startsWith("/admin") ? "active" : ""}>
+            Admin
+          </Link>
+        ) : null}
       </nav>
       <div className="nav-auth">
         {user ? (
