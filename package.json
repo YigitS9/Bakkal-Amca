@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
+    "prisma:setup-db": "prisma db execute --file prisma/migrations/20260626195400_init/migration.sql --schema prisma/schema.prisma",
     "prisma:seed": "prisma db seed"
   },
   "prisma": {

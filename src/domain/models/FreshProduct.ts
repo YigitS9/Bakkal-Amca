@@ -12,7 +12,7 @@ export class FreshProduct extends Product {
     stockQuantity: number,
     categoryId: string,
     expirationDate?: Date,
-    originCountry?: string
+    originCountry?: string,
   ) {
     super(id, name, description, price, stockQuantity, categoryId);
     this.expirationDate = expirationDate;
@@ -32,13 +32,6 @@ export class FreshProduct extends Product {
   }
 
   public override getFinalPrice(): number {
-    if (!this.expirationDate) {
-      return this.getPrice();
-    }
-
-    const daysUntilExpiration =
-      (this.expirationDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24);
-
-    return daysUntilExpiration <= 2 ? Number((this.getPrice() * 0.8).toFixed(2)) : this.getPrice();
+    return this.getPrice();
   }
 }
